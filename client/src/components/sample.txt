@@ -1,0 +1,69 @@
+
+import { ethers } from 'ethers'
+import React from 'react'
+function Buy({ state }) {
+    const buyCarbon = async (event) => {
+        event.preventDefault()
+        const { contract } = state
+        const name = document.querySelector('#name').value
+        const message = document.querySelector('#message').value
+        console.log(name, message, contract)
+        const amount = {value:ethers.parseEther("0.001")}
+        const transaction = await contract.buyCredits(name,message,amount)
+        await transaction.wait()
+        console.log('Carbon Transaction Done !')
+    }
+    return (
+        <>
+            <form onSubmit={buyCarbon} >
+                <label>Name</label>
+                <input type="text" id="name" placeholder="Enter your name" />
+                <label> Message </label>
+                <input type="text" id="message" placeholder="Enter your message"  ></input>
+                <button type="submit"  disabled={!state.contract} > Pay </button>
+            </form>
+        </>
+    )
+}
+export default Buy
+
+import { useState, useEffect } from "react"
+
+function Memo({ state }) {
+    const [memo, setMemo] = useState([]);
+    const { contract } = state;
+
+    useEffect(() => {
+        const memoMessage = async () => {
+            const memos = await contract.getMemo();
+            setMemo(memos);
+        };
+
+        if (contract) {
+            memoMessage();
+        }
+    }, [contract]);
+
+    return (
+        <>
+            <p>Message</p>
+            {memo.map((mem) => (
+                <table key={mem.timestamp}>
+                    <tbody>
+                        <tr>
+                            <td>{mem.name}</td>
+                            <td>{mem.message}</td>
+                            <td>{ new Date(memo.timestamp*1000).toLocaleString() }</td>
+                            <td>{mem.from}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            ))}
+        </>
+    );
+}
+
+export default Memo;
+
+
+

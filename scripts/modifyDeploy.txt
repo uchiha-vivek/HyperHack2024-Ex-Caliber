@@ -1,0 +1,79 @@
+const hre = require('hardhat');
+
+async function getBalances(address) {
+    const balanceBigInt = await hre.ethers.provider.getBalance(address);
+    return hre.ethers.formatEther(balanceBigInt);
+}
+
+// Console balance
+async function consoleBalance(addresses) {
+    let counter = 0;
+    for (const address of addresses) {
+        console.log(`Address ${counter} balance:`, await getBalances(address));
+        counter++;
+    }
+}
+
+async function getMemo(memos) {
+    for (const memo of memos) {
+        const timestamp = memo.timestamp;
+        const name = memo.name;
+        const from = memo.from;
+        const message = memo.message;
+        console.log(`At ${timestamp}, name ${name}, address ${from}, message ${message}`);
+    }
+}
+
+async function main() {
+    const [owner, from1, from2, from3] = await hre.ethers.getSigners();
+    const Carbon = await hre.ethers.getContractFactory("Carbon");
+    const contract = await Carbon.deploy();
+    
+    // Await the deployment to complete and retrieve the contract address
+    await contract.waitForDeployment();
+    const contractAddress = await contract.getAddress();
+    
+    console.log("Address of contract", contractAddress);
+
+    const addr = [owner.address, from1.address, from2.address, from3.address];
+    console.log("Before buying credits");
+    await consoleBalance(addr);
+
+    // Buy credits and add memos
+    const amount = { value: hre.ethers.parseEther("1") };
+    await contract.connect(from1).buyCredits("from1", "Credit 1", amount);
+    await contract.connect(from2).buyCredits("from2", "Credit 2", amount);
+    await contract.connect(from3).buyCredits("from3", "Credit 3", amount);
+
+    console.log("After buying credits");
+    await consoleBalance(addr);
+
+    // Issue additional credits to an address (by the owner)
+    await contract.issueCredits(from1.address, 10);
+    await contract.issueCredits(from2.address, 15);
+
+    // Transfer credits between users
+    await contract.connect(from1).transferCredits(from3.address, 5);
+    await contract.connect(from2).transferCredits(from1.address, 5);
+
+    // Redeem credits
+    await contract.connect(from1).redeemCredits(3);
+    await contract.connect(from3).redeemCredits(2);
+
+    console.log("After issuing, transferring, and redeeming credits");
+    await consoleBalance(addr);
+
+    // Retrieve and print memos
+    const memos = await contract.getMemos();
+    getMemo(memos);
+
+    // Print the credit balances
+    console.log(`Credit balance of from1: ${await contract.getCreditBalance(from1.address)}`);
+    console.log(`Credit balance of from2: ${await contract.getCreditBalance(from2.address)}`);
+    console.log(`Credit balance of from3: ${await contract.getCreditBalance(from3.address)}`);
+}
+
+main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+});

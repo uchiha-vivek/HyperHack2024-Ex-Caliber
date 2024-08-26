@@ -1,0 +1,37 @@
+import { useState, useEffect } from "react";
+
+function Memo({ state }) {
+    const [memo, setMemo] = useState([]);
+    const { contract } = state;
+
+    useEffect(() => {
+        const memoMessage = async () => {
+            if (contract) {
+                const memos = await contract.getMemo();
+                setMemo(memos);
+            }
+        };
+
+        memoMessage();
+    }, [contract]);
+
+    return (
+        <>
+            <h3 className="text-lg font-bold mb-4">Messages</h3>
+            {memo.length > 0 ? (
+                memo.map((mem) => (
+                    <div key={mem.timestamp} className="mb-4 p-4 border rounded-lg">
+                        <p><strong>Name:</strong> {mem.name}</p>
+                        <p><strong>Message:</strong> {mem.message}</p>
+                        <p><strong>Timestamp:</strong> {new Date(mem.timestamp * 1000).toLocaleString()}</p>
+                        <p><strong>From:</strong> {mem.from}</p>
+                    </div>
+                ))
+            ) : (
+                <p>No messages found.</p>
+            )}
+        </>
+    );
+}
+
+export default Memo;

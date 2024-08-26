@@ -1,0 +1,17 @@
+const hre = require('hardhat');
+
+async function main() {
+    const Carbon = await hre.ethers.getContractFactory("Carbon");
+    const contract = await Carbon.deploy();
+
+    // Wait for deployment to complete
+    await contract.waitForDeployment();
+    
+    // Log the address of the deployed contract
+    console.log("Address of contract", await contract.getAddress());
+}
+
+main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+});

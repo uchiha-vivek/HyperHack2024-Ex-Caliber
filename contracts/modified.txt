@@ -1,0 +1,102 @@
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.6.12 <0.9.0;
+
+contract Carbon {
+    struct Memo {
+        string name;
+        string message;
+        uint timestamp;
+        address from;
+    }
+
+    struct Credit {
+        uint amount;
+        bool exists;
+    }
+
+    Memo[] public memos;
+    mapping(address => Credit) public credits;
+    address payable public owner;
+
+    event CreditsIssued(address indexed to, uint amount);
+    event CreditsTransferred(address indexed from, address indexed to, uint amount);
+    event CreditsRedeemed(address indexed by, uint amount);
+    event MemoReceived(address indexed from, string name, string message, uint amount);
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only the owner can perform this action");
+        _;
+    }
+
+    constructor() {
+        owner = payable(msg.sender);
+    }
+
+    // Issue credits to a specific address
+    function issueCredits(address to, uint amount) public onlyOwner {
+        require(to != address(0), "Invalid address");
+        require(amount > 0, "Amount must be greater than 0");
+
+        if (credits[to].exists) {
+            credits[to].amount += amount;
+        } else {
+            credits[to] = Credit(amount, true);
+        }
+
+        emit CreditsIssued(to, amount);
+    }
+
+    // Transfer credits to another address
+    function transferCredits(address to, uint amount) public {
+        require(to != address(0), "Invalid address");
+        require(amount > 0, "Amount must be greater than 0");
+        require(credits[msg.sender].amount >= amount, "Insufficient credits");
+
+        credits[msg.sender].amount -= amount;
+
+        if (credits[to].exists) {
+            credits[to].amount += amount;
+        } else {
+            credits[to] = Credit(amount, true);
+        }
+
+        emit CreditsTransferred(msg.sender, to, amount);
+    }
+
+    // Redeem credits (burn them)
+    function redeemCredits(uint amount) public {
+        require(amount > 0, "Amount must be greater than 0");
+        require(credits[msg.sender].amount >= amount, "Insufficient credits");
+
+        credits[msg.sender].amount -= amount;
+        
+        emit CreditsRedeemed(msg.sender, amount);
+    }
+
+    // Buy credits and leave a memo
+    function buyCredits(string memory name, string memory message) public payable {
+        require(msg.value > 0, "Please pay greater than 0 ether");
+
+        uint creditsBought = msg.value; // 1 ether = 1 credit for simplicity
+        owner.transfer(msg.value);
+
+        if (credits[msg.sender].exists) {
+            credits[msg.sender].amount += creditsBought;
+        } else {
+            credits[msg.sender] = Credit(creditsBought, true);
+        }
+
+        memos.push(Memo(name, message, block.timestamp, msg.sender));
+        emit MemoReceived(msg.sender, name, message, creditsBought);
+    }
+
+    // Get all memos
+    function getMemos() public view returns (Memo[] memory) {
+        return memos;
+    }
+
+    // Get credits balance of an address
+    function getCreditBalance(address account) public view returns (uint) {
+        return credits[account].amount;
+    }
+}
