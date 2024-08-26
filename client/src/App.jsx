@@ -56,7 +56,7 @@ function App() {
   return (
     <>
       <div className=' '>
-        {/* <p>  Connected -  {account} </p> */}
+       
         <Buy state={state} >
 
         </Buy>
