@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { ethers } from 'ethers'  // Correctly import from 'ethers'
 import Buy from './components/Buy.jsx'
 import Memo from './components/Memo.jsx'
+import Navbar from './components/Navbar.jsx'
 
 function App() {
   const [state, setState] = useState({
@@ -55,13 +56,13 @@ function App() {
 
   return (
     <>
-      <div className=' '>
-       
+    
+       <Navbar/>
         <Buy state={state} >
 
         </Buy>
         <Memo state={state} ></Memo>
-      </div>
+     
     </>
   )
 }

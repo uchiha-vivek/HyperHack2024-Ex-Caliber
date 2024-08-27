@@ -1,5 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import FadeInCard from "../components/Card/FadeInCard";
+import Navbar from "../components/Navbar";
+import Hero from "../components/Hero";
+import Footer from "../components/Footer";
+import Feature from "../components/Feature";
+ 
 
 function LandingPage() {
     const navigate = useNavigate();
@@ -31,10 +36,17 @@ function LandingPage() {
                 </div>
 
             </div> */}
-            <div>
+            {/* <div>
                 <FadeInCard/>
               
+            </div> */}
+            <Navbar/>
+            <div className="max-w-7xl pt-20 px-6 mx-auto " >
+               
+               <Hero/>
+               <Feature/>
             </div>
+            <Footer/>
 
         </>
     );
