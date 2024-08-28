@@ -14,7 +14,7 @@ const Hero = () => {
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam dolorum corrupti voluptate. Tempora mollitia sint illo minus deleniti a dolores vel eaque odio! Commodi iure rerum nostrum, perferendis libero quod.
             </p>
             <div className="justify-center flex my-10  " >
-            <Link to='/home' className='rounded-md  text-black bg-gradient-to-r from-green-700 to-green-400 py-2 px-3 '> Trade Credits ! </Link>
+            <Link to='/home' className='rounded-md  text-black bg-gradient-to-r from-green-700 to-green-400 py-2 px-3 '> Buy Credits ! </Link>
             </div>
         </div>
         </>

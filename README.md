@@ -1,13 +1,18 @@
-# Sample Hardhat Project
+ # My Project
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+## Screenshots
 
-Try running some of the following tasks:
+Here are some screenshots of the project:
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.js
-```
+![Homepage Screenshot](app.png)
+ 
+https://66cd3a9021541162afde0ae5--jazzy-tartufo-bc6e69.netlify.app/ 
+
+## Demo Videos
+
+Watch these videos to see the project in action:
+
+- [Introduction to the Project](https://youtu.be/_pI3jTo8aGk)
+ 
+
+
