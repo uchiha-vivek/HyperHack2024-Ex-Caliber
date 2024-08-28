@@ -5,7 +5,7 @@
 Here are some screenshots of the project:
 
 ![Homepage Screenshot](/assets/screen1.png)
- 
+![Homepage Screenshot](/assets/Screenshot%20(75).png) 
 https://66cf42286469037f739636be--roaring-pika-09074f.netlify.app/
 
 ## Demo Videos
