@@ -4,7 +4,7 @@
 
 Here are some screenshots of the project:
 
-![Homepage Screenshot](app.png)
+![Homepage Screenshot](/assets/screen1.png)
  
 https://66cf42286469037f739636be--roaring-pika-09074f.netlify.app/
 
