@@ -19,8 +19,8 @@ const Feature = () => {
                             <BotMessageSquare />
                         </div>
                         <div className="justify-center items-center flex flex-col ">
-                            <h5 className="mt-1 mb-6 text-xl " >Importance of Carbon</h5>
-                            <p>Carbon credits are a market-driven approach to reducing greenhouse gas emissions.  </p>
+                            <h5 className="mt-1 mb-6 text-xl " >Carbon Credit Generation</h5>
+                            <p>Our system enables businesses and organizations to generate carbon credits by implementing sustainable practices such as renewable energy projects, reforestation, and energy efficiency improvements. Each credit represents one ton of carbon dioxide reduced, providing an opportunity for companies to actively contribute to climate change mitigation. This not only helps the environment but also opens up new revenue streams by monetizing your green initiatives.  </p>
                         </div>
 
                     </div>
@@ -29,8 +29,8 @@ const Feature = () => {
                             <BotMessageSquare />
                         </div>
                         <div className="justify-center items-center flex flex-col " >
-                            <h5 className="mt-1 mb-6 text-xl " >Importance of Carbon</h5>
-                            <p>Carbon credits are a market-driven approach to reducing greenhouse gas emissions.  </p>
+                            <h5 className="mt-1 mb-6 text-xl " >Carbon Credit Trading Platform</h5>
+                            <p>Trade your carbon credits effortlessly on our secure platform, connecting buyers and sellers from around the world. Our transparent marketplace allows companies to purchase credits to offset their emissions, meeting regulatory requirements and enhancing their sustainability profile. By trading carbon credits, businesses can balance their carbon footprint and support global efforts to reduce greenhouse gas emissions.  </p>
                         </div>
 
                     </div>
@@ -39,8 +39,8 @@ const Feature = () => {
                             <BotMessageSquare />
                         </div>
                         <div className="justify-center items-center flex flex-col " >
-                            <h5 className="mt-1 mb-6 text-xl " >Importance of Carbon</h5>
-                            <p>Carbon credits are a market-driven approach to reducing greenhouse gas emissions.  . </p>
+                            <h5 className="mt-1 mb-6 text-xl " >Carbon Credit Verification and Compliance</h5>
+                            <p>Ensure the integrity of your carbon credits with our rigorous verification and compliance process. Our system adheres to international standards, validating that each credit reflects a genuine reduction in emissions. This provides confidence to buyers and supports credibility in the carbon market. We handle all aspects of verification, from project evaluation to continuous monitoring, ensuring that every carbon credit is backed by real, measurable climate action. </p>
                         </div>
 
                     </div>
